@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Private audio authenticity screening and source attribution." />
+    <title>VoiceProof — Audio authenticity screening</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+  <body data-authenticated="false" data-model-ready="false">
+    <div class="noise"></div>
+    <nav class="nav wrap">
+      <a class="brand" href="/" aria-label="VoiceProof home"><span class="brand-mark">V</span> VoiceProof</a>
+      <a class="google-button" id="google-login" href="/login"><span class="google-g">G</span> Continue with Google</a>
+      <div class="account" id="account" hidden><img id="account-picture" alt="" referrerpolicy="no-referrer" hidden /><span id="account-name"></span><form action="/logout" method="post"><button class="text-button">Sign out</button></form></div>
+    </nav>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow"><span class="pulse"></span> AUDIO FORENSICS, IN YOUR BROWSER</div>
+        <h1>Know what’s behind<br /><em>a voice.</em></h1>
+        <p>Screen an audio clip for synthetic-speech signals and, when confidence supports it, see the most likely generator family.</p>
+        <div class="metrics"><span><b>LFCC</b> forensic fingerprint</span><span><b>LCNN</b> dual-head model</span><span><b>Private</b> audio discarded after scan</span></div>
+      </section>
+      <section class="workspace">
+        <div class="scan-card">
+          <div class="card-heading"><div><p class="section-label">NEW ANALYSIS</p><h2>Drop in an audio clip</h2></div><span class="limit">MAX 25 MB</span></div>
+          <div class="setup-notice" id="setup-notice" hidden><strong>Model needs loading.</strong> Add the trained checkpoint and class map described in the setup guide. The interface is ready; analysis is safely disabled until then.</div>
+          <div class="auth-gate" id="auth-gate"><span class="lock">⌁</span><div><strong>Sign in to start a private analysis</strong><p>Your account lets you revisit your result history. Uploaded audio is not retained.</p></div><a class="primary-button" href="/login">Continue with Google <span>→</span></a></div>
+          <form id="analysis-form" hidden>
+            <label class="dropzone" id="dropzone" for="audio-input"><input id="audio-input" name="audio" type="file" accept="audio/wav,audio/mpeg,audio/mp4,audio/x-m4a,audio/flac,audio/ogg,.wav,.mp3,.m4a,.flac,.ogg" /><span class="upload-icon">↥</span><span class="drop-title">Drag &amp; drop your file here</span><span class="drop-copy">or <u>choose from your device</u> · WAV, MP3, M4A, FLAC, OGG</span></label>
+            <div class="file-row" id="file-row" hidden><span class="file-dot"></span><span id="file-name"></span><span id="file-size"></span><button type="button" id="remove-file" aria-label="Remove selected file">×</button></div>
+            <button class="primary-button analyze-button" id="analyze-button" type="submit" disabled>Analyze audio <span>→</span></button>
+          </form>
+          <p class="disclaimer">By scanning, you confirm you have the right to analyze this audio. VoiceProof is an assistive screening tool, not a determination of identity, ownership, or intent.</p>
+        </div>
+        <aside class="side-panel"><p class="section-label">HOW IT WORKS</p><ol class="steps"><li><span>01</span><div><strong>Audio is normalized</strong><p>We turn the first four seconds into a 16 kHz LFCC fingerprint.</p></div></li><li><span>02</span><div><strong>Two signals are scored</strong><p>The model separately screens authenticity and generator class.</p></div></li><li><span>03</span><div><strong>Results are calibrated</strong><p>Attribution is withheld when confidence is not high enough.</p></div></li></ol><div class="privacy-note"><span>✦</span><p><strong>Privacy by design</strong><br />Files are processed in temporary storage and removed after each scan.</p></div></aside>
+      </section>
+      <section class="result-section" id="result-section" hidden aria-live="polite"><div class="result-head"><div><p class="section-label">ANALYSIS COMPLETE</p><h2 id="result-filename">Your result</h2></div><button class="text-button" id="close-result">Close ×</button></div><div class="result-card" id="result-card"></div></section>
+      <section class="history" id="history-section" hidden><div class="history-head"><div><p class="section-label">YOUR ACTIVITY</p><h2>Recent analyses</h2></div><span class="limit">LAST 20</span></div><div id="history-list" class="history-list"><p class="empty-history">Loading your private history…</p></div></section>
+    </main>
+    <footer class="wrap"><span>VOICEPROOF / 2026</span><span>DETECTION IS PROBABILISTIC</span><span>BUILT FOR RESPONSIBLE REVIEW</span></footer>
+    <script src="static/app.js"></script>
+  </body>
+</html>

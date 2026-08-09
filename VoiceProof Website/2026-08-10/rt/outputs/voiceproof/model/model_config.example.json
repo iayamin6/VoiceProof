@@ -1,0 +1,6 @@
+{
+  "class_labels": ["real", "generator_1", "generator_2"],
+  "real_label": "real",
+  "fake_threshold": 0.5,
+  "source_threshold": 0.6
+}
