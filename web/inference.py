@@ -93,7 +93,7 @@ def load_model() -> LoadedModel:
     config_path = model_dir / "model_config.json"
     if not weights_path.exists() or not config_path.exists():
         raise RuntimeError(
-            "Model assets are missing. Add model/best_lcnn.pth and model/model_config.json before analysing audio."
+            "Model assets are missing. Add web/model/best_lcnn.pth and web/model/model_config.json before analysing audio."
         )
     config = json.loads(config_path.read_text())
     labels = config.get("class_labels")

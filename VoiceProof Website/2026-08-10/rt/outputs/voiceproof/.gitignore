@@ -1,5 +1,0 @@
-.env
-voiceproof.db
-__pycache__/
-model/*.pth
-model/model_config.json

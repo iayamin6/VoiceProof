@@ -16,10 +16,10 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
-from inference import analyze_audio, load_model
+from .inference import analyze_audio, load_model
 
-load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR.parent / ".env")
 DATABASE_PATH = Path(os.getenv("DATABASE_PATH", BASE_DIR / "voiceproof.db"))
 MAX_UPLOAD_BYTES = 25 * 1024 * 1024
 ALLOWED_EXTENSIONS = {".wav", ".mp3", ".m4a", ".flac", ".ogg"}
